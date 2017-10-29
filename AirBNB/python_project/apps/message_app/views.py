@@ -40,7 +40,7 @@ def create(request, listing_id):
     errors = Message.objects.create_validator(request.POST)
     sent_by_user = User.objects.get(id=sent_by)
     received_by_user = User.objects.get(id=received_by)
-    about_listing_id = listing.objects.filter(id=about_listing)
+    about_listing_id = listing.objects.get(id=about_listing)
     print errors
     if len(errors):
         for error in errors:
@@ -54,15 +54,5 @@ def create(request, listing_id):
         request.session['message_id'] = new_message.id
         return redirect(reverse('messages:send', args=(listing_id)))
 
-# def sendMessage(request, listing_id, message_id):
-#     current_user = User.objects.get(id=request.session['user_id'])
-#     current_listing = listing.objects.get(id=listing_id)
-#     current_message = Message.objects.get(id=message_id)
-#     messages = Message.objects.all()
-#     current_message.about_listing.add(current_user)
-#     current_message.save()
-
-#     return redirect(reverse('messages:send', args=request.session['user_id']))
-
-    
-#  return redirect(reverse('messages:send', args=(user_id)))
+# def conversations(request):
+#     all_messages = Message.objects.all()

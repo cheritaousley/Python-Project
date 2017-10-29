@@ -51,9 +51,9 @@
         {% csrf_token %}
         <div class="form-group">
             Message to Host: <textarea name="content" id="description"></textarea>
-            Sent_by: <input type="hidden" name="sent_by" value="{{request.session.user_id}}">
-            Received_by: <input type="hidden" name="received_by" value="{{listings.host_user.id}}">
-            About_listing: <input type="hidden" name="about_listing" value="{{listings.id}}">
+            <input type="hidden" name="sent_by" value="{{request.session.user_id}}">
+            <input type="hidden" name="received_by" value="{{listings.host_user.id}}">
+            <input type="hidden" name="about_listing" value="{{listings.id}}">
         </div>
         <div class="form-group">
             <input class="submit" type='submit' value='Submit Changes!'>
@@ -72,22 +72,15 @@
     {% else %}
         <p>your message has been sent!</p>
         {% for messages in message_profile %}
-            {% for m in messages.message_profile}
             <tr>
                 <td>{{messages.content}}</td>
-                <td>{{messages.sent_by}} </td>
-                <td> {{messages.received_by}}</td>
-                <td> {{messages.about_listing</td>
+                <td>{{messages.sent_by.first_name}} </td>
+                <td> {{messages.received_by.first_name}}</td>
+                <td> {{messages.about_listing.title}}</td>
             </tr>
             {% endfor %}
         </table>
     {% endif %}
-    {% for message in message_profile %}
-    <tr>
-        <td>{{message.content}}</td>
-        <td>{{message.sent_by}} </td>
-        <td> {{message.received_by}}</td>
-        <td> {{message.about_listing</td>
-    </tr>
-    {% endfor %}
     </table>
+</body>
+</html>

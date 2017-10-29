@@ -108,7 +108,7 @@
                         <input type="hidden" name='user' value="{{request.session.user_id}}">
                         <div class="row review">
                             <h5>Rating:</h5>
-                            <input type="number" name="rating" min='0' max="5" step=".5">
+                            <input type="number" name="rating" min='0' max="5" step="1">
                         </div>
                         
                         <textarea class="w-100" name="review" cols="30" rows="2" maxlength="1000" placeholder="Your review.."></textarea>
@@ -116,10 +116,15 @@
                     </form>
                     {% endif %}
                 </div>
+                {% if review_count == None %}
+                <h3>0 Reviews</h3>
+                {% else %}
+                <h3>{{review_count}} Reviews</h3>
+                {% endif %}
                 {% for review in listing_reviews %}
                 <div class="review">
                     <div class="row">
-                        <h3>{{review_count}} Reviews</h3>
+                        
                     </div>
                     <div class="row">
                         <div class="col">

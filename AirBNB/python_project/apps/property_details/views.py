@@ -72,6 +72,8 @@ def display(request, listing_id):
     return render(request, 'property_details/display.html', context)
 
 def create_review(request):
+    if request.POST['rating'] == '':
+        return redirect(reverse('property:display', args=request.POST['listing_id']))
     review_content = request.POST['review']
     reviewed_listing = listing.objects.get(id = request.POST['listing_id']) 
     user_reviewing = User.objects.get(id = request.POST['user'])

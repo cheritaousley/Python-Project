@@ -34,10 +34,12 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = MessageManager()
-    def __unicode__(self):
-         return str(self.sent_by, self.received_by)
     # def __unicode__(self):
-    #     return unicode(self.sent_by, self.received_by, self.about_listing)
+    #      return str(self.sent_by, self.received_by)
+    # def __unicode__(self):
+    #      return "content " + self.sent_by + self.received_by
+    def __unicode__(self):
+        return unicode(self.content)
 
     # def __unicode__(self):
         # return "{0}, {1}".format(self.sent_by, self.received_by)

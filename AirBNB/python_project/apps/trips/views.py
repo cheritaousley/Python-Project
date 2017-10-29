@@ -51,20 +51,6 @@ def bookatrip(request, listing_id):
 def mytrips(request):
     user_id = User.objects.get(id=request.session['user_id'])
     mytrip = Trips.objects.filter(guests_id=user_id).order_by("start_date")
-    trip = Trips.objects.get(id=1)
-    start = trip.start_date.strftime('%Y %m %d')
-    end = trip.end_date.strftime('%Y %m %d')
-    mdate = trip.start_date.strftime('%Y-%m-%d')
-    rdate = trip.end_date.strftime('%Y-%m-%d')
-    print mdate
-    print rdate
-    mdate1 = datetime.strptime(mdate, "%Y-%m-%d").date()
-    rdate1 = datetime.strptime(rdate, "%Y-%m-%d").date()
-    delta =  (rdate1 - mdate1).days
-    print delta
-    myrate = trip.pay
-    bill = delta * myrate
-    print bill
 
     newArr=[]
     for trip in mytrip:
@@ -76,7 +62,7 @@ def mytrips(request):
         print delta
         myrate = trip.pay
         bill = delta * myrate
-        this_trip = {'city': trip.listing.city, 'title': trip.listing.title, 'start': start, 'end': end, 'bill': bill}
+        this_trip = {'city': trip.listing.city, 'title': trip.listing.title, 'start': start, 'end': end, 'bill': bill, 'listing': trip.id}
         newArr.append(this_trip)
 
     print newArr

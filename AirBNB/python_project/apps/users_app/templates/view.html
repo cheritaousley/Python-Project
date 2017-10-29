@@ -9,6 +9,18 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     <title>My Profile</title>
+    <style>
+        .message{
+            margin-left:150px;
+            margin-top: 100px;
+            border: 3px solid grey;
+            width: 300px;
+            padding: 20px
+        }
+        /* .message h5{
+            color: grey
+        } */
+    </style>
 </head>
 <div class="navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="/">AirBnb</a>
@@ -25,6 +37,15 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/add">Host/Create listing</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'trips:mytrips' %}">My Trips</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:view' request.session.user_id %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'users:logout' %}">Log Out</a>
             </li>
         </ul>
     </div>
@@ -70,12 +91,17 @@
         </div>
         {% endfor %}
     </div>
-<<<<<<< HEAD
-    <h6>This is where we need to show users information and picture</h6>
-    <img src="/media/{{user_profile.profile_pic}}" alt="img" class="img-responsive img-rounded">
+    <div class="message">
+    <h5> Listing Conversations</h5>
+        {% if not conversation %}
+            <p>no messages have been sent to host about this listing</p>
+        {% else %}
+        {% for convo in conversation %}
+            <ul class="list-group">
+                <li class="list-group-item"><a href="/display/{{convo.about_listing.id}}">{{convo.about_listing.title}}</a></li>
+            </ul>
+        {% endfor %}
+        {% endif %}
+    </div>
     </body>
-    </html>
-=======
-</body>
 </html>
->>>>>>> upstream/master

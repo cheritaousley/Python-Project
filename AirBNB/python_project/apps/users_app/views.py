@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 import bcrypt
 from ..property_details.models import *
+from ..message_app.models import *
 
 
 def index(request):
@@ -75,6 +76,8 @@ def login(request):
 def edit(request, user_id):
     current_user = User.objects.get(id=request.session['user_id'])
     print current_user
+    storage = messages.get_messages(request)
+    storage.used = True
     context = {
         'user_edit': current_user
     }
@@ -98,17 +101,20 @@ def update(request, user_id):   #How to run validations thorugh an update?
     person.profile_pic = request.FILES.get('profile_pic', "")
     person.save()
     print "I was updated"
-    return redirect(reverse("users:view", args=(user_id)))
+    return redirect('/airbnb/'+user_id+'/view')
 
 def view(request, user_id):
     current_user = User.objects.get(id=request.session['user_id'])
-    
+    all_messages = Message.objects.all()
+    sent_message = all_messages.filter(sent_by__in=[current_user])
+    print sent_message
     try:
         all_user_listings = listing.objects.filter(host_user = current_user)
     except:
         all_user_listings = None
         
     context = {
+        'conversation': sent_message,
         'user_profile': current_user,
         'user_listings': all_user_listings
     }

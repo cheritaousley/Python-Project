@@ -49,9 +49,6 @@
             </ul>
         </div>
     </div>
-     <!-- {% for trip in mytrips %} 
-     
-     {% endfor %} -->
     <div class="container">
         <h2>My Upcoming Trips</h2>
         <table class="table">
@@ -66,10 +63,9 @@
             </thead>
             <tbody>
                  {% for trip in newarr %}
-                    <p>{{trip}}</p>
                 <tr>
                     <td>{{trip.city}}</td>
-                    <td>{{trip.title}}</td>
+                    <td><a href="/display/{{trip.listing}}">{{trip.title}}</a></td>
                     <td>{{trip.start}}</td>
                     <td>{{trip.end}}</td>
                     <td>{{trip.bill}}</td>
@@ -78,10 +74,6 @@
             </tbody>
         </table>
     </div>
-    
-    </body>
-    
-    </html>
 </body>
 
 </html>
